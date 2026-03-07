@@ -1,7 +1,7 @@
 package com.shyamstudio.celestCombatPro.commands;
 
 import com.shyamstudio.celestCombatPro.CelestCombatPro;
-import com.shyamstudio.celestCombatPro.language.MessageService;
+import com.shyamstudio.celestCombatPro.messages.MessageManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -12,7 +12,7 @@ import java.util.Map;
 
 public abstract class BaseCommand {
     protected final CelestCombatPro plugin;
-    protected final MessageService messageService;
+    protected final MessageManager messageService;
 
     public BaseCommand(CelestCombatPro plugin) {
         this.plugin = plugin;

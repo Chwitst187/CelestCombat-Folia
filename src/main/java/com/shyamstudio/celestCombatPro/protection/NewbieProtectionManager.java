@@ -375,7 +375,7 @@ public class NewbieProtectionManager {
 
         // Create new boss bar
         String title = bossBarTitle.replace("%time%", formatTime(getRemainingTime(player)));
-        title = plugin.getLanguageManager().colorize(title);
+        title = plugin.getMessageService().colorize(title);
 
         BossBar bossBar = Bukkit.createBossBar(title, bossBarColor, bossBarStyle);
         bossBar.setProgress(1.0);
@@ -404,7 +404,7 @@ public class NewbieProtectionManager {
 
         // Update title
         String title = bossBarTitle.replace("%time%", formatTime(remainingTime));
-        title = plugin.getLanguageManager().colorize(title);
+        title = plugin.getMessageService().colorize(title);
         bossBar.setTitle(title);
 
         // Update progress

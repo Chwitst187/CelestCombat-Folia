@@ -2,7 +2,7 @@ package com.shyamstudio.celestCombatPro.listeners;
 
 import com.shyamstudio.celestCombatPro.CelestCombatPro;
 import com.shyamstudio.celestCombatPro.combat.DeathAnimationManager;
-import com.shyamstudio.celestCombatPro.language.MessageService;
+import com.shyamstudio.celestCombatPro.messages.MessageManager;
 import com.shyamstudio.celestCombatPro.protection.NewbieProtectionManager;
 import com.shyamstudio.celestCombatPro.rewards.KillRewardManager;
 import com.shyamstudio.celestCombatPro.api.CelestCombatAPI;
@@ -34,7 +34,7 @@ public class CombatListeners implements Listener {
     private NewbieProtectionManager newbieProtectionManager;
     private KillRewardManager killRewardManager;
     private DeathAnimationManager deathAnimationManager;
-    private MessageService messageService;
+    private MessageManager messageManager;
 
     private final Map<UUID, Boolean> playerLoggedOutInCombat = new ConcurrentHashMap<>();
     // Add a map to track the last damage source for each player
@@ -49,7 +49,7 @@ public class CombatListeners implements Listener {
         this.newbieProtectionManager = plugin.getNewbieProtectionManager();
         this.killRewardManager = plugin.getKillRewardManager();
         this.deathAnimationManager = plugin.getDeathAnimationManager();
-        this.messageService = plugin.getMessageService();
+        this.messageManager = plugin.getMessageService();
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -76,7 +76,7 @@ public class CombatListeners implements Listener {
         this.newbieProtectionManager = plugin.getNewbieProtectionManager();
         this.killRewardManager = plugin.getKillRewardManager();
         this.deathAnimationManager = plugin.getDeathAnimationManager();
-        this.messageService = plugin.getMessageService();
+        this.messageManager = plugin.getMessageService();
 
         plugin.debug("CombatListeners managers reloaded successfully");
     }
@@ -305,7 +305,7 @@ public class CombatListeners implements Listener {
             if (playerLoggedOutInCombat.get(playerUUID)) {
                 Map<String, String> placeholders = new HashMap<>();
                 placeholders.put("player", player.getName());
-                messageService.sendMessage(player, "player_died_combat_logout", placeholders);
+                messageManager.sendMessage(player, "player_died_combat_logout", placeholders);
             }
             // Clean up the map to prevent memory leaks
             playerLoggedOutInCombat.remove(playerUUID);
@@ -365,7 +365,7 @@ public class CombatListeners implements Listener {
                 placeholders.put("player", player.getName());
                 placeholders.put("command", command);
                 placeholders.put("time", String.valueOf(CelestCombatAPI.getCombatAPI().getRemainingCombatTime(player)));
-                messageService.sendMessage(player, "command_blocked_in_combat", placeholders);
+                messageManager.sendMessage(player, "command_blocked_in_combat", placeholders);
             }
         }
     }
@@ -376,7 +376,11 @@ public class CombatListeners implements Listener {
 
         // If player is trying to enable flight
         if (event.isFlying() && CelestCombatAPI.getCombatAPI().shouldDisableFlight(player)) {
-            event.setCancelled(true);
+            // Only cancel if player is actually trying to fly (not just falling/knockback)
+            // Check if player is on ground or has significant upward velocity (intentional flight)
+            if (player.isOnGround() || player.getVelocity().getY() > 0) {
+                event.setCancelled(true);
+            }
         }
     }
 

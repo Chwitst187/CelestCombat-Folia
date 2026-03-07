@@ -27,7 +27,7 @@ public class ReloadCommand extends BaseCommand {
 
         // Reload config
         plugin.reloadConfig();
-        plugin.getLanguageManager().reloadLanguages();
+        plugin.getMessageService().reload();
         plugin.refreshTimeCache();
 
         if (plugin.getWorldGuardHook() != null) {

@@ -6,8 +6,7 @@ import com.shyamstudio.celestCombatPro.combat.CombatManager;
 import com.shyamstudio.celestCombatPro.combat.DeathAnimationManager;
 import com.shyamstudio.celestCombatPro.commands.CommandManager;
 import com.shyamstudio.celestCombatPro.configs.TimeFormatter;
-import com.shyamstudio.celestCombatPro.language.LanguageManager;
-import com.shyamstudio.celestCombatPro.language.MessageService;
+import com.shyamstudio.celestCombatPro.messages.MessageManager;
 import com.shyamstudio.celestCombatPro.listeners.CombatListeners;
 import com.shyamstudio.celestCombatPro.listeners.EnderPearlListener;
 import com.shyamstudio.celestCombatPro.hooks.protection.WorldGuardHook;
@@ -18,7 +17,6 @@ import com.shyamstudio.celestCombatPro.listeners.TridentListener;
 import com.shyamstudio.celestCombatPro.protection.NewbieProtectionManager;
 import com.shyamstudio.celestCombatPro.rewards.KillRewardManager;
 import com.shyamstudio.celestCombatPro.updates.ConfigUpdater;
-import com.shyamstudio.celestCombatPro.updates.LanguageUpdater;
 import com.shyamstudio.celestCombatPro.updates.UpdateChecker;
 import com.shyamstudio.celestCombatPro.api.CelestCombatAPI;
 import com.shyamstudio.celestCombatPro.api.CombatAPIImpl;
@@ -33,11 +31,9 @@ public final class CelestCombatPro extends JavaPlugin {
   @Getter
   private static CelestCombatPro instance;
   private final boolean debugMode = getConfig().getBoolean("debug", false);
-  private LanguageManager languageManager;
-  private MessageService messageService;
+  private MessageManager messageManager;
   private UpdateChecker updateChecker;
   private ConfigUpdater configUpdater;
-  private LanguageUpdater languageUpdater;
   private TimeFormatter timeFormatter;
   private CommandManager commandManager;
   private CombatManager combatManager;
@@ -64,11 +60,7 @@ public final class CelestCombatPro extends JavaPlugin {
     saveDefaultConfig();
     checkProtectionPlugins();
 
-    languageManager = new LanguageManager(this, LanguageManager.LanguageFileType.MESSAGES);
-    languageUpdater = new LanguageUpdater(this, LanguageUpdater.LanguageFileType.MESSAGES);
-    languageUpdater.checkAndUpdateLanguageFiles();
-
-    messageService = new MessageService(this, languageManager);
+    messageManager = new MessageManager(this);
     updateChecker = new UpdateChecker(this);
     configUpdater = new ConfigUpdater(this);
     configUpdater.checkAndUpdateConfig();
@@ -240,6 +232,10 @@ public final class CelestCombatPro extends JavaPlugin {
   }
 
   public void reload() {
+    if (messageManager != null) {
+      messageManager.reload();
+    }
+
     if (worldGuardHook != null) {
       worldGuardHook.cleanup();
     }
@@ -247,5 +243,9 @@ public final class CelestCombatPro extends JavaPlugin {
     if (griefPreventionHook != null) {
       griefPreventionHook.cleanup();
     }
+  }
+
+  public MessageManager getMessageService() {
+    return messageManager;
   }
 }

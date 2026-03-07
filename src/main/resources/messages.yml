@@ -1,7 +1,14 @@
+# ========================================
+#     CelestCombat-Pro Messages Config
+# ========================================
+# All messages are fully configurable
+# Use & for color codes and &#RRGGBB for hex colors
+# Placeholders: %player%, %time%, %command%, %victim%, etc.
+
 prefix: "&8[&#4A90E2CelestCombat&8] "
 
 # ------------------------------------------------------
-#                  Combat messages
+#                  Combat Messages
 # ------------------------------------------------------
 combat_countdown:
   action_bar: "&#4A90E2Combat: &#FFFFFF%time%s"
@@ -30,7 +37,7 @@ item_use_blocked_in_combat:
   sound: block.note_block.pling
 
 # ------------------------------------------------------
-#                Ender pearl messages
+#                Ender Pearl Messages
 # ------------------------------------------------------
 enderpearl_cooldown:
   action_bar: "&#E94E77Ender Pearl is on cooldown!"
@@ -43,7 +50,7 @@ combat_pearl_countdown:
   action_bar: "&#4A90E2Combat: &#FFFFFF%combat_time%s &#8B8B8B| &#E94E77Pearl: &#FFFFFF%pearl_time%s"
 
 # ------------------------------------------------------
-#                Trident messages
+#                Trident Messages
 # ------------------------------------------------------
 trident_banned:
   message: "&cTridents are banned in this world!"
@@ -57,7 +64,7 @@ trident_only_countdown:
   action_bar: "&#4FC3F7Trident cooldown: &#FFFFFF%time%s"
 
 # ------------------------------------------------------
-#              Combined countdown messages
+#              Combined Countdown Messages
 # ------------------------------------------------------
 combat_pearl_trident_countdown:
   action_bar: "&#4A90E2Combat: &#FFFFFF%combat_time%s &#8B8B8B| &#E94E77Pearl: &#FFFFFF%pearl_time%s &#8B8B8B| &#4FC3F7Trident: &#FFFFFF%trident_time%s"
@@ -69,14 +76,14 @@ pearl_trident_countdown:
   action_bar: "&#E94E77Pearl: &#FFFFFF%pearl_time%s &#8B8B8B| &#4FC3F7Trident: &#FFFFFF%trident_time%s"
 
 # ------------------------------------------------------
-#                Kill reward messages
+#                Kill Reward Messages
 # ------------------------------------------------------
 kill_reward_received:
   action_bar: "&#8A2BE2+★10 &#FFFFFFfor killing %victim%"
   sound: entity.player.levelup
 
 # ------------------------------------------------------
-#              Newbie protection messages
+#              Newbie Protection Messages
 # ------------------------------------------------------
 newbie_protection_granted:
   message: "&#4CAF50Granted newbie protection for &#FFFFFF%duration%&#4CAF50! You are safe from PvP."
@@ -97,7 +104,7 @@ newbie_protection_actionbar:
   action_bar: "&#4CAF50PvP Protection: &#FFFFFF%time%"
 
 # ------------------------------------------------------
-# Safe zone messages for third-party protection plugins
+#           Safe Zone Messages (WorldGuard)
 # ------------------------------------------------------
 combat_no_safezone_entry:
   message: "&cCan't enter safe zone in combat! &#F39C12Please wait &#FFFFFF%time% &#F39C12seconds."
@@ -108,13 +115,13 @@ combat_no_pearl_safezone:
   sound: block.note_block.pling
 
 killed_trying_to_enter_safezone_combat:
-  message: "&&cYou were killed while trying to enter a safe zone in combat."
+  message: "&cYou were killed while trying to enter a safe zone in combat."
   title: "&#E94E77COMBAT PENALTY"
   subtitle: "&#BF3A49Don't go into safe zones during fights!"
   sound: entity.wither.hurt
 
 # ------------------------------------------------------
-# Claim protection messages for GriefPrevention
+#        Claim Protection Messages (GriefPrevention)
 # ------------------------------------------------------
 combat_no_claim_entry:
   message: "&cCan't enter protected claim in combat! &#F39C12Please wait &#FFFFFF%time% &#F39C12seconds."
@@ -131,7 +138,7 @@ combat_killed_no_safe_location:
   sound: entity.wither.hurt
 
 # ------------------------------------------------------
-#                Plugin command messages
+#                Plugin Command Messages
 # ------------------------------------------------------
 no_permission:
   message: "&cYou don't have permission to use this command."
@@ -139,7 +146,6 @@ no_permission:
 
 help_message:
   message: |
-    &8&m
     &8&m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     &8                          &7&#F5F5DC&lCOMMAND LIST
     &8&m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -156,12 +162,10 @@ help_message:
     &8» &#4A90E2/cc newbieProtection check <player> &#F5F5DC- Check newbie protection status
     &8&m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# Reload command messages
 config_reloaded:
   message: "&#4CAF50CelestCombat configuration successfully reloaded."
   sound: entity.player.levelup
 
-# Combat tag command messages
 combat_tag_success:
   message: "&#4CAF50Successfully tagged %player1% and %player2% in combat."
   sound: entity.experience_orb.pickup
@@ -174,7 +178,6 @@ player_not_found:
   message: "&cPlayer %player% not found."
   sound: entity.villager.no
 
-# Combat removal command messages
 player_not_in_combat:
   message: "&c%player% is not currently in combat!"
   sound: entity.villager.no
@@ -203,7 +206,6 @@ combat_remove_all_success:
   message: "&#4CAF50Successfully removed %count% players from combat server-wide!"
   sound: entity.experience_orb.pickup
 
-# Kill cooldown command messages
 clear_cooldown_success:
   message: "&#4CAF50Successfully cleared all kill reward cooldowns for %player%!"
   sound: entity.experience_orb.pickup
@@ -216,7 +218,6 @@ no_cooldowns_to_clear:
   message: "&cNo kill reward cooldowns to clear!"
   sound: entity.villager.no
 
-# Kill cooldown check messages
 no_kill_cooldown:
   message: "&#4CAF50%player% has no active kill reward cooldown"
   sound: entity.experience_orb.pickup
@@ -233,7 +234,6 @@ kill_cooldown_remaining_target:
   message: "&e%player% has %time% remaining kill reward cooldown for %target%"
   sound: block.note_block.pling
 
-# Newbie protection command messages
 newbie_protection_give_success:
   message: "&#4CAF50Successfully granted newbie protection to %player%!"
   sound: entity.experience_orb.pickup

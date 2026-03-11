@@ -92,7 +92,7 @@ combat:
   # Items blocked during combat (Foods, Potions, Elytra)
   item_restrictions:
     # Enable or disable item restrictions during combat
-    enabled: false
+    enabled: true
     # Items blocked during combat (Foods, Potions, Elytra)
     disabled_items:
       - CHORUS_FRUIT

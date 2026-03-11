@@ -1,0 +1,44 @@
+name: CelestCombatExample
+version: 1.0.0
+main: com.example.celestcombat.ExamplePlugin
+api-version: 1.19
+author: YourName
+description: Example plugin demonstrating CelestCombat-Pro API integration
+
+# CelestCombat-Pro is required for this plugin to work
+depend: [CelestCombat-Pro]
+
+commands:
+  combatinfo:
+    description: Show your current combat information
+    usage: /combatinfo
+    permission: example.combatinfo
+    
+  combatlist:
+    description: List all players currently in combat (admin only)
+    usage: /combatlist
+    permission: example.admin
+    
+  safedisconnect:
+    description: Safely disconnect a player without combat log penalty (admin only)
+    usage: /safedisconnect <player>
+    permission: example.admin
+
+permissions:
+  example.combatinfo:
+    description: Allows using /combatinfo command
+    default: true
+    
+  example.admin:
+    description: Allows using admin commands
+    default: op
+    children:
+      - example.combatinfo
+      
+  example.newbie:
+    description: Grants newbie protection from combat
+    default: false
+    
+  example.vip.nopunish:
+    description: Prevents combat log punishment for VIP players
+    default: false

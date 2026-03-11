@@ -36,6 +36,10 @@ item_use_blocked_in_combat:
   message: "&cYou cannot use %item% while in combat!"
   sound: block.note_block.pling
 
+elytra_removed_combat_start:
+  message: "&cYour %item% has been removed because you entered combat!"
+  sound: block.note_block.pling
+
 # ------------------------------------------------------
 #                Ender Pearl Messages
 # ------------------------------------------------------
@@ -154,6 +158,7 @@ help_message:
     &8» &#4A90E2/cc removeTag player <player> &#F5F5DC- Remove a player from combat
     &8» &#4A90E2/cc removeTag world <world> &#F5F5DC- Remove all players from combat in a world
     &8» &#4A90E2/cc removeTag all &#F5F5DC- Remove all players from combat server-wide
+    &8» &#4A90E2/cc safeDisconnect <player> &#F5F5DC- Disconnect a player without combat log penalty
     &8» &#4A90E2/cc killReward check <player> [target] &#F5F5DC- Check kill reward cooldown
     &8» &#4A90E2/cc killReward clear <player> &#F5F5DC- Clear kill reward cooldowns for a player
     &8» &#4A90E2/cc killReward clearAll &#F5F5DC- Clear all kill reward cooldowns server-wide
@@ -204,6 +209,10 @@ no_players_in_combat_server:
 
 combat_remove_all_success:
   message: "&#4CAF50Successfully removed %count% players from combat server-wide!"
+  sound: entity.experience_orb.pickup
+
+safe_disconnect_success:
+  message: "&#4CAF50Successfully disconnected %player% safely without combat log penalty!"
   sound: entity.experience_orb.pickup
 
 clear_cooldown_success:

@@ -44,6 +44,14 @@ public interface CombatAPI {
     
     void punishCombatLogout(Player player);
     
+    /**
+     * Disconnects a player without treating it as combat logging.
+     * The player's combat tag remains active and will continue after reconnect.
+     * 
+     * @param player The player to disconnect
+     */
+    void disconnectPlayerSafely(Player player);
+    
     long getCombatDuration();
     
     long getEnderPearlCooldownDuration();

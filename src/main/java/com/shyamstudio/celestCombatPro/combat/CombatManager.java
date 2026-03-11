@@ -322,6 +322,11 @@ public class CombatManager {
             player.setFlying(false);
         }
 
+        // Handle Elytra removal when entering combat (only for new combat sessions)
+        if (!alreadyInCombat && plugin.getItemRestrictionListener() != null) {
+            plugin.getItemRestrictionListener().handleCombatStart(player);
+        }
+
         combatOpponents.put(playerUUID, attacker.getUniqueId());
         playersInCombat.put(playerUUID, newEndTime);
 

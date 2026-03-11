@@ -43,6 +43,7 @@ public final class CelestCombatPro extends JavaPlugin {
   private CombatListeners combatListeners;
   private EnderPearlListener enderPearlListener;
   private TridentListener tridentListener;
+  private ItemRestrictionListener itemRestrictionListener;
   private DeathAnimationManager deathAnimationManager;
   private NewbieProtectionManager newbieProtectionManager;
   private WorldGuardHook worldGuardHook;
@@ -93,7 +94,8 @@ public final class CelestCombatPro extends JavaPlugin {
     getServer().getPluginManager().registerEvents(tridentListener, this);
 
     // Note: Some methods in ItemRestrictionListener are now registered dynamically
-    getServer().getPluginManager().registerEvents(new ItemRestrictionListener(this, combatManager), this);
+    itemRestrictionListener = new ItemRestrictionListener(this, combatManager);
+    getServer().getPluginManager().registerEvents(itemRestrictionListener, this);
 
     // WorldGuard integration
     if (hasWorldGuard && getConfig().getBoolean("safezone_protection.enabled", true)) {
@@ -303,5 +305,9 @@ public final class CelestCombatPro extends JavaPlugin {
   
   public DynamicEventHandler getDynamicEventHandler() {
     return dynamicEventHandler;
+  }
+
+  public ItemRestrictionListener getItemRestrictionListener() {
+    return itemRestrictionListener;
   }
 }

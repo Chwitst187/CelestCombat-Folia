@@ -175,6 +175,15 @@ public class CombatAPIImpl implements CombatAPI {
     }
     
     @Override
+    public void disconnectPlayerSafely(Player player) {
+        if (player == null) return;
+        
+        // Kick the player without triggering combat log punishment
+        // The combat tag remains active and will continue after reconnect
+        player.kickPlayer("Disconnected safely by admin");
+    }
+    
+    @Override
     public long getCombatDuration() {
         return plugin.getTimeFromConfig("combat.duration", "20s") / 20;
     }

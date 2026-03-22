@@ -145,19 +145,24 @@ public class WorldGuardHook implements Listener {
         // ── Bulk barrier update task ──────────────────────────────────────
         // Drains the barrierUpdateQueue and processes each player once,
         // regardless of how many move-events they fired since last tick.
-        // All Bukkit API calls here must be main-thread safe; adjust with
-        // Scheduler.runTask() if your Scheduler wrapper requires it.
+        // On Folia, block/world access must happen in the player's region,
+        // not on the global scheduler, so each queued player is handed off
+        // to an entity task before we touch their world state.
         Scheduler.runTaskTimer(() -> {
             Set<UUID> queued = new HashSet<>(barrierUpdateQueue);
             barrierUpdateQueue.clear();
             for (UUID uuid : queued) {
                 Player player = plugin.getServer().getPlayer(uuid);
                 if (player == null || !player.isOnline()) continue;
-                if (!combatManager.isInCombat(player)) {
-                    removePlayerBarriers(player);
-                    continue;
-                }
-                updatePlayerBarriers(player);
+
+                Scheduler.runEntityTask(player, () -> {
+                    if (!player.isOnline()) return;
+                    if (!combatManager.isInCombat(player)) {
+                        removePlayerBarriers(player);
+                        return;
+                    }
+                    updatePlayerBarriers(player);
+                });
             }
         }, 5L, 5L); // every 5 ticks (~250 ms)
 

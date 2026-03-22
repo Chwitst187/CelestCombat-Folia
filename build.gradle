@@ -56,11 +56,11 @@ dependencies {
 
     compileOnly 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
 
-    compileOnly 'com.sk89q.worldedit:worldedit-bukkit:7.4.0-SNAPSHOT'
+    compileOnly 'com.sk89q.worldedit:worldedit-bukkit:7.4.1]'
     compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.16-SNAPSHOT'
 
 
-    compileOnly 'com.github.GriefPrevention:GriefPrevention:17.0.0'
+    compileOnly 'com.github.GriefPrevention:GriefPrevention:1.18.44'
 
     compileOnly 'me.clip:placeholderapi:2.12.2'
 

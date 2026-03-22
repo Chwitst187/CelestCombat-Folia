@@ -1,8 +1,6 @@
 plugins {
     id 'java'
-    id 'xyz.jpenilla.run-paper' version '2.3.1'
-    id 'com.github.ben-manes.versions' version '0.52.0'
-    id 'se.patrikerdes.use-latest-versions' version '0.2.18'
+    id 'com.github.ben-manes.versions' version '0.53.0'
 }
 
 group = 'com.shyamstudio'
@@ -85,23 +83,30 @@ processResources {
 }
 
 
-tasks.runServer {
-    minecraftVersion '1.21'
+tasks.register('useLatestVersions') {
+    group = 'help'
+    description = 'Generates the dependency update report and prints guidance for manually applying version bumps.'
+    dependsOn(tasks.named('dependencyUpdates'))
+
+    doFirst {
+        logger.warn('Automatic in-place dependency rewriting is disabled because the legacy use-latest-versions plugin is incompatible with the Gradle/Groovy versions used by this project.')
+    }
 }
 
 tasks.register('dependencyUpdate') {
     group = 'help'
-    description = 'Checks for dependency updates. Use -PupdateAll=true to update all declared dependency versions in build.gradle.'
+    description = 'Checks for dependency updates. Use -PupdateAll=true to also run the compatibility-safe useLatestVersions helper.'
+
+    dependsOn(tasks.named('dependencyUpdates'))
 
     if (providers.gradleProperty('updateAll').map { it.toBoolean() }.getOrElse(false)) {
-        dependsOn(tasks.named('useLatestVersions'))
+        finalizedBy(tasks.named('useLatestVersions'))
         doFirst {
-            logger.lifecycle('Updating all supported dependency versions because -PupdateAll=true was provided.')
+            logger.lifecycle('Running dependency update report and the compatibility-safe useLatestVersions helper because -PupdateAll=true was provided.')
         }
     } else {
-        dependsOn(tasks.named('dependencyUpdates'))
         doFirst {
-            logger.lifecycle('Running dependency update report. Re-run with -PupdateAll=true to update supported dependency versions automatically.')
+            logger.lifecycle('Running dependency update report. Re-run with -PupdateAll=true to also print manual update guidance.')
         }
     }
 }
